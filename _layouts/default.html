@@ -16,16 +16,34 @@
       </div>
       <div id="currently-available" class="row">
         <p>
-          <strong>Already available:</strong>
-          <a href="https://github.com/cljsjs/packages/tree/master/react">React.js</a>,
-          <a href="https://github.com/cljsjs/packages/tree/master/hammer">Hammer.js</a>,
-          <a href="https://github.com/cljsjs/packages/tree/master/jquery">jQuery</a>,
-          <a href="https://github.com/cljsjs/packages/tree/master/moment">Moment.js</a>,
-          <a href="https://github.com/cljsjs/packages/tree/master/pikaday">Pikaday.js</a> & more.
-          <br>Learn how you can <a href="https://github.com/cljsjs/packages">create packages</a>.
+          <button id="show-packages">
+            See what's already available
+          </button>
         </p>
       </div>
       <div id="whats-in-the-box">{{content}}</div>
     </div>
+    <script>
+      (function() {
+        var button = document.getElementById('show-packages'),
+            container = document.getElementById('currently-available'),
+            packagesUrl = null,
+            iframe = document.createElement('iframe');
+
+        packagesUrl = (window.location.href.indexOf('localhost') > -1) ?
+          'http://localhost:3000' : 'https://cljsjs.github.io/packages';
+
+        iframe.src = packagesUrl;
+        iframe.style.width = '720px';
+        iframe.style.height = '500px';
+        iframe.style.border = 'none';
+        iframe.style.margin = '0 auto';
+
+        button.onclick = function(e) {
+          container.innerHTML = '';
+          container.appendChild(iframe);
+        };
+      }())
+    </script>
   </body>
 </html>
